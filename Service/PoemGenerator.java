@@ -1,6 +1,6 @@
 package Service;
 
-import Model.*;
+import GrammarRule.*;
 
 import java.util.ArrayList;
 import java.util.List;

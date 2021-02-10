@@ -1,9 +1,10 @@
-package Model;
+package GrammarRule;
 
 import java.util.HashMap;
 import java.util.Map;
 
-// Grammar defines the rules followed by the poem generator
+// The Grammar model captures Grammar attributes
+// Grammar is a collection of rules
 
 public class Grammar {
 	private String mainRule;
@@ -11,8 +12,7 @@ public class Grammar {
 	
 	// Constructor
 	public Grammar(){
-		this.mainRule = "";
-        this.rules = null;
+		
 	}
 	
 	// Getters and Setters

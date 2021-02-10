@@ -1,19 +1,17 @@
-package Model;
+package GrammarRule;
 
 import java.util.List;
 
-// Rule defines the rules followed by Poem Generator
+// The Rule model captures rule attributes
 
 public class Rule {
 	private String ruleName;
 	private List<String> words;
-	private List<String> keys;
+	private List<String> keywords;
 	
 	// Constructor
 	public Rule(){
-		this.ruleName = "";
-		this.words = null;
-		this.keys = null;
+		
 	}
 	
 	// Keywords
@@ -50,11 +48,11 @@ public class Rule {
 	}
 	
 	public List<String> getKeywords() {
-		return keys;
+		return keywords;
 	}
 	
-	public void setKeywords(List<String> keys) {
-		this.keys = keys;
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
 	}
 
 }

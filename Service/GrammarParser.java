@@ -1,15 +1,8 @@
 package Service;
 
-import Model.*;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import GrammarRule.*;
+import java.io.*;
+import java.util.*;
 
 public class GrammarParser {
 	public Grammar readInputFile(String inputFile){
@@ -28,9 +21,9 @@ public class GrammarParser {
 		
 		// Read the input file
 		try {
-			FileInputStream fis = new FileInputStream(file);	
-			BufferedInputStream bis = new BufferedInputStream(fis);
-			BufferedReader br = new BufferedReader(new InputStreamReader(bis));
+			//FileInputStream fis = new FileInputStream(file);	
+			//BufferedInputStream bis = new BufferedInputStream(fis);
+			BufferedReader br = new BufferedReader(new FileReader(inputFile));
 	
 			// Process the file line by line
 			while (br.readLine() != null) {
@@ -94,8 +87,8 @@ public class GrammarParser {
 			}
 			
 			// Done with reading, close resources
-			fis.close();
-			bis.close();
+			//fis.close();
+			//bis.close();
 			br.close();
 		} catch (IOException e) {
 			System.out.println("Error reading input file.");
