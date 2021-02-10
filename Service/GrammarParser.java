@@ -2,14 +2,16 @@ package Service;
 
 import Model.*;
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GrammerParser {
+public class GrammarParser {
 	public Grammar readInputFile(String inputFile){
 
 		File file = new File(inputFile);
@@ -22,16 +24,16 @@ public class GrammerParser {
 		}
 	
 		// Create a Grammar object
-		Grammar grammar = new Grammar();
+		Grammar grammar= new Grammar();
 		
 		// Read the input file
 		try {
 			FileInputStream fis = new FileInputStream(file);	
 			BufferedInputStream bis = new BufferedInputStream(fis);
-			BufferedReader  br = new BufferedReader(bis);
+			BufferedReader br = new BufferedReader(new InputStreamReader(bis));
 	
 			// Process the file line by line
-			while (br.available() != 0) {
+			while (br.readLine() != null) {
 				// Create a Rule object
 				Rule rule= new Rule();
 				
@@ -48,11 +50,11 @@ public class GrammerParser {
 					// It's main rule, set it
 					grammar.setMainRule(ruleName);
 					String [] referenceKeywords=ruleDefinition.trim().split(" ");
-					List<String> ruleReferenceKeyword = new ArrayList<String>();	
+					List<String> ruleReferenceKeyword= new ArrayList<String>();	
 					for (String referenceKeyword : referenceKeywords) {
 						ruleReferenceKeyword.add(referenceKeyword);
 					}
-					rule.setReferencesAndKeywords(ruleReferenceKeyword);			
+					rule.setKeywords(ruleReferenceKeyword);			
 					
 					grammar.getRules().put(ruleName, rule);					
 				}
@@ -84,7 +86,7 @@ public class GrammerParser {
 					for (String referenceKeyword : referenceKeywords) {
 						ruleReferenceKeyword.add(referenceKeyword);
 					}
-					rule.setReferencesAndKeywords(ruleReferenceKeyword);			
+					rule.setKeywords(ruleReferenceKeyword);			
 					
 					// Add the rule to grammar
 					grammar.getRules().put(ruleName, rule);	            
