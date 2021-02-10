@@ -6,7 +6,7 @@ public class Poem {
 
 	public static void main(String[] args) {
 		// Input file name
-		String INPUT_FILE_NAME = "C:\\Users\\shubh\\Documents\\GitHub\\Random-Poem-Generator\\GrammarRules.txt";
+		String INPUT_FILE_NAME = "GrammarRules.txt";
 		
 		// Read the input file and parse the grammar
 		GrammerRulesParser grammerRulesParser= new GrammerRulesParser();
