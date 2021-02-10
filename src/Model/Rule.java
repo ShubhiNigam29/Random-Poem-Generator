@@ -1,13 +1,13 @@
 package Model;
 
-import java.util.List;
+import java.util.*;
 
-// The Rule model captures rule attributes
+// The Rule model defines rules to be followed by Poem Generator
 
 public class Rule {
 	private String ruleName;
 	private List<String> words;
-	private List<String> referencesAndKeywords;
+	private List<String> keywords;
 	
 	// Constructor
 	public Rule(){
@@ -47,12 +47,12 @@ public class Rule {
 		this.words = words;
 	}
 	
-	public List<String> getReferencesAndKeywords() {
-		return referencesAndKeywords;
+	public List<String> getKeywords() {
+		return keywords;
 	}
 	
-	public void setReferencesAndKeywords(List<String> referencesAndKeywords) {
-		this.referencesAndKeywords = referencesAndKeywords;
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
 	}
 
 }

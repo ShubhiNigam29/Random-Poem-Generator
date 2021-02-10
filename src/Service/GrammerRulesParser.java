@@ -1,13 +1,8 @@
 package Service;
 
 import Model.*;
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class GrammerRulesParser {
 	public Grammar readInputFile(String inputFile){
@@ -17,7 +12,7 @@ public class GrammerRulesParser {
 		// Exit program if file doesn't exist
 		if (!file.exists())
 		{
-			System.out.println(" The input file" + inputFile + " doesn't exist.");
+			System.out.println("Input file" + inputFile + " doesn't exist!");
 			System.exit(0);
 		}
 	
@@ -32,9 +27,7 @@ public class GrammerRulesParser {
 	
 			// Process the file line by line
 			while (dis.available() != 0) {
-				// Create a Rule object
 				Rule rule= new Rule();
-				
 				// Read line and set Rule name
 				// Get rule definition
 				String line=dis.readLine();
@@ -47,25 +40,25 @@ public class GrammerRulesParser {
 				if (grammar.getMainRule()==null){
 					// It's main rule, set it
 					grammar.setMainRule(ruleName);
-					String [] referenceKeywords=ruleDefinition.trim().split(" ");
-					List<String> ruleReferenceKeyword= new ArrayList<String>();	
-					for (String referenceKeyword : referenceKeywords) {
-						ruleReferenceKeyword.add(referenceKeyword);
+					String [] keywords=ruleDefinition.trim().split(" ");
+					List<String> ruleKeyword= new ArrayList<String>();	
+					for (String keyword : keywords) {
+						ruleKeyword.add(keyword);
 					}
-					rule.setReferencesAndKeywords(ruleReferenceKeyword);			
+					rule.setKeywords(ruleKeyword);			
 					
 					grammar.getRules().put(ruleName, rule);					
 				}
 				else{
 					// It's not a main rule, set it
-					String[] ruleWordReferenceKeyword = ruleDefinition.split(" ");
+					String[] ruleWordKeyword = ruleDefinition.split(" ");
 					
-					// Flag to decide which ruleWordReferenceKeyword is for References and Keywords
-					int indexReferenceKeyword=0;
+					// Flag to decide which ruleWordKeyword is for Keywords
+					int indexKeyword=0;
 					
 					// The rule has words
-					if (ruleWordReferenceKeyword[0].matches("[a-z].*")){
-						String [] words =ruleWordReferenceKeyword[0].trim().split("\\|");
+					if (ruleWordKeyword[0].matches("[a-z].*")){
+						String [] words =ruleWordKeyword[0].trim().split("\\|");
 						List<String> ruleWords= new ArrayList<String>();
 					
 						// Add words to the rule
@@ -74,18 +67,17 @@ public class GrammerRulesParser {
 						}
 						rule.setWords(ruleWords);
 						
-						// Second entry of the ruleWordReferenceKeyword is for References and Keywords
-						indexReferenceKeyword=1;	
+						// Second entry of the ruleWordKeyword is for Keywords
+						indexKeyword=1;	
 					}
 	
-					// Get the References and Keywords and add them to the rule
-					String [] referenceKeywords=ruleWordReferenceKeyword[indexReferenceKeyword].trim().split("\\|");
-					List<String> ruleReferenceKeyword= new ArrayList<String>();	
-					for (String referenceKeyword : referenceKeywords) {
-						ruleReferenceKeyword.add(referenceKeyword);
+					// Get the Keywords and add them to the rule
+					String [] keywords=ruleWordKeyword[indexKeyword].trim().split("\\|");
+					List<String> ruleKeyword= new ArrayList<String>();	
+					for (String keyword : keywords) {
+						ruleKeyword.add(keyword);
 					}
-					rule.setReferencesAndKeywords(ruleReferenceKeyword);			
-					
+					rule.setKeywords(ruleKeyword);					
 					// Add the rule to grammar
 					grammar.getRules().put(ruleName, rule);	            
 				}
@@ -96,7 +88,7 @@ public class GrammerRulesParser {
 			bis.close();
 			dis.close();
 		} catch (IOException e) {
-			System.out.println("Error reading input file.");
+			System.out.println("Error reading input file!");
 		}		  	  
 		return grammar;		  	  
 	}

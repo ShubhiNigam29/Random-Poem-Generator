@@ -1,10 +1,8 @@
 package Model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-// The Grammar model captures Grammar attributes
-// Grammar is a collection of rules
+// Describes the grammar rules
 
 public class Grammar {
 	private String mainRule;

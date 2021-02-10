@@ -2,9 +2,7 @@ package Service;
 
 import Model.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class RandomPoemGenerator {
 	public void generatePoem(Grammar grammar){
@@ -14,7 +12,7 @@ public class RandomPoemGenerator {
         
         // Get the references to be executed by the main rule
         List<Rule> ruleQueues= new ArrayList<Rule>();
-        for(String ruleName: mainRule.getReferencesAndKeywords()){     	
+        for(String ruleName: mainRule.getKeywords()){     	
         	ruleQueues.add(grammar.getRules().get(ruleName.substring(1, ruleName.length() - 1)));
         }
         
@@ -34,21 +32,21 @@ public class RandomPoemGenerator {
 	        System.out.print(word+" "); 
     	}
     	
-    	// Get a random references and keywords
-        List<String> ReferencesAndKeywords=rule.getReferencesAndKeywords();
-        int random = getRandomNumber(0, ReferencesAndKeywords.size());
-        String refKeyString = ReferencesAndKeywords.get(random);
+    	// Get a random keywords
+        List<String> Keywords=rule.getKeywords();
+        int random = getRandomNumber(0, Keywords.size());
+        String keyString = Keywords.get(random);
         
-        if (refKeyString.matches("<[A-Z]+>")) {
+        if (keyString.matches("<[A-Z]+>")) {
         	// The random selection is a Rule
         	// Execute the rule
-        	Rule nextRule = grammar.getRules().get(refKeyString.substring(1, refKeyString.length() - 1));
+        	Rule nextRule = grammar.getRules().get(keyString.substring(1, keyString.length() - 1));
         	ruleOutput(nextRule, grammar);
         }
         else {
         	// The random selection is a Keyword
         	// Print it
-        	Rule.Keywords valueOf = Rule.Keywords.valueOf(refKeyString);
+        	Rule.Keywords valueOf = Rule.Keywords.valueOf(keyString);
         	System.out.print(valueOf.getValue());
         }
     }
