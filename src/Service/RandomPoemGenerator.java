@@ -1,12 +1,12 @@
 package Service;
 
-import GrammarRule.*;
+import Model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PoemGenerator {
+public class RandomPoemGenerator {
 	public void generatePoem(Grammar grammar){
 
 		// Get the main/starting rule
@@ -14,7 +14,7 @@ public class PoemGenerator {
         
         // Get the references to be executed by the main rule
         List<Rule> ruleQueues= new ArrayList<Rule>();
-        for(String ruleName: mainRule.getKeywords()){     	
+        for(String ruleName: mainRule.getReferencesAndKeywords()){     	
         	ruleQueues.add(grammar.getRules().get(ruleName.substring(1, ruleName.length() - 1)));
         }
         
@@ -35,7 +35,7 @@ public class PoemGenerator {
     	}
     	
     	// Get a random references and keywords
-        List<String> ReferencesAndKeywords=rule.getKeywords();
+        List<String> ReferencesAndKeywords=rule.getReferencesAndKeywords();
         int random = getRandomNumber(0, ReferencesAndKeywords.size());
         String refKeyString = ReferencesAndKeywords.get(random);
         

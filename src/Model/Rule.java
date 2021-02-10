@@ -1,4 +1,4 @@
-package GrammarRule;
+package Model;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import java.util.List;
 public class Rule {
 	private String ruleName;
 	private List<String> words;
-	private List<String> keywords;
+	private List<String> referencesAndKeywords;
 	
 	// Constructor
 	public Rule(){
@@ -47,12 +47,12 @@ public class Rule {
 		this.words = words;
 	}
 	
-	public List<String> getKeywords() {
-		return keywords;
+	public List<String> getReferencesAndKeywords() {
+		return referencesAndKeywords;
 	}
 	
-	public void setKeywords(List<String> keywords) {
-		this.keywords = keywords;
+	public void setReferencesAndKeywords(List<String> referencesAndKeywords) {
+		this.referencesAndKeywords = referencesAndKeywords;
 	}
 
 }

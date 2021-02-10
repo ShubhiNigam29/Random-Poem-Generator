@@ -1,10 +1,15 @@
 package Service;
 
-import GrammarRule.*;
-import java.io.*;
-import java.util.*;
+import Model.*;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GrammarParser {
+public class GrammerRulesParser {
 	public Grammar readInputFile(String inputFile){
 
 		File file = new File(inputFile);
@@ -12,7 +17,7 @@ public class GrammarParser {
 		// Exit program if file doesn't exist
 		if (!file.exists())
 		{
-			System.out.println("Input file" + inputFile + " doesn't exist!");
+			System.out.println(" The input file" + inputFile + " doesn't exist.");
 			System.exit(0);
 		}
 	
@@ -21,18 +26,18 @@ public class GrammarParser {
 		
 		// Read the input file
 		try {
-			//FileInputStream fis = new FileInputStream(file);	
-			//BufferedInputStream bis = new BufferedInputStream(fis);
-			BufferedReader br = new BufferedReader(new FileReader(inputFile));
+			FileInputStream fis = new FileInputStream(file);	
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			DataInputStream dis = new DataInputStream(bis);
 	
 			// Process the file line by line
-			while (br.readLine() != null) {
+			while (dis.available() != 0) {
 				// Create a Rule object
 				Rule rule= new Rule();
 				
 				// Read line and set Rule name
 				// Get rule definition
-				String line=br.readLine();
+				String line=dis.readLine();
 				String [] ruleString=line.split(":");
 				String ruleName = ruleString[0].trim();
 				String ruleDefinition = ruleString[1].trim();
@@ -47,7 +52,7 @@ public class GrammarParser {
 					for (String referenceKeyword : referenceKeywords) {
 						ruleReferenceKeyword.add(referenceKeyword);
 					}
-					rule.setKeywords(ruleReferenceKeyword);			
+					rule.setReferencesAndKeywords(ruleReferenceKeyword);			
 					
 					grammar.getRules().put(ruleName, rule);					
 				}
@@ -79,7 +84,7 @@ public class GrammarParser {
 					for (String referenceKeyword : referenceKeywords) {
 						ruleReferenceKeyword.add(referenceKeyword);
 					}
-					rule.setKeywords(ruleReferenceKeyword);			
+					rule.setReferencesAndKeywords(ruleReferenceKeyword);			
 					
 					// Add the rule to grammar
 					grammar.getRules().put(ruleName, rule);	            
@@ -87,9 +92,9 @@ public class GrammarParser {
 			}
 			
 			// Done with reading, close resources
-			//fis.close();
-			//bis.close();
-			br.close();
+			fis.close();
+			bis.close();
+			dis.close();
 		} catch (IOException e) {
 			System.out.println("Error reading input file.");
 		}		  	  
